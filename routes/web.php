@@ -20,4 +20,4 @@ Route::get('/', function () {
 
 
 
-Route::get('/admin', [admin::class, 'index']);
+Route::resource('admin', admin::class);

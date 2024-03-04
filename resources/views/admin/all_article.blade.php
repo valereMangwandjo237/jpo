@@ -1,20 +1,32 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-    <script src="{{ asset('js/bootstrap.min.js')}}"></script>
-    <title>Document</title>
-</head>
-<body>
-    <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+@extends('admin.layout')
+
+@section('title', 'Articles')
+
+
+@section('content')
+@if (session('status'))
+    <div class="alert alert-danger">
+        {{ session('status') }}
+    </div>
+@endif
+    <h1 class="text-center font-weight-bold">
+      Listes de articles 
+      <a class="btn btn-success" href="{{ route('admin.create')}}">Ajouter un article</a>
+    </h1>
+    <div class="row">
+      @foreach ($articles as $article)
+      <div class="col-md-6">
+        <div class="card mb-6" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="image_illutstrative">
+          <div class="card-body">
+            <h5 class="card-title">{{ $article->title}}</h5>
+            <p class="card-text">{{ Str::limit($article->description, 100, '...') }}</p>
+            <a href="{{ route('admin.show', $article)}}" class="btn btn-primary">Voir plus</a>
+          </div>
+        </div>
       </div>
-      <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-      </div>
-</body>
-</html>
+      @endforeach
+      
+    </div>
+
+@endsection
